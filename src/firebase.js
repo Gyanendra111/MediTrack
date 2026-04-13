@@ -1,20 +1,31 @@
-// TODO: MANUAL_FILL_REPORT.md - Replace with your Firebase config (lines 6-16)
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "YOUR_APP_ID"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export const functions = getFunctions(app);
+export const hasFirebaseConfig = Object.values(firebaseConfig).every(Boolean);
+
+let app = null;
+let auth = null;
+let db = null;
+let functions = null;
+
+if (hasFirebaseConfig) {
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
+  functions = getFunctions(app);
+} else {
+  console.warn('Firebase config is missing. Auth and Firestore features are disabled until env vars are set.');
+}
+
+export { app, auth, db, functions };

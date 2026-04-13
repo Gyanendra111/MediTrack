@@ -3,9 +3,9 @@
 This report lists all places where you should fill real credentials, API URLs, or business rules. The current code is intentionally wired with UI-ready placeholders so you can complete integrations later.
 
 ## 1. Core Auth and Database
-- File: src/firebase.js
-- What to fill: firebaseConfig object
-- Required values: apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId
+- File: .env (frontend), src/firebase.js
+- What to fill: `VITE_FIREBASE_*` environment variables
+- Required values: VITE_FIREBASE_API_KEY, VITE_FIREBASE_AUTH_DOMAIN, VITE_FIREBASE_PROJECT_ID, VITE_FIREBASE_STORAGE_BUCKET, VITE_FIREBASE_MESSAGING_SENDER_ID, VITE_FIREBASE_APP_ID
 - Source: Firebase Console -> Project Settings -> Your apps -> Web SDK config
 
 ## 2. OCR and Smart Categorization
@@ -68,27 +68,26 @@ This report lists all places where you should fill real credentials, API URLs, o
   - backend/.env.example
 - What to do now:
   - create backend/.env from backend/.env.example
-  - fill all blank values
-  - replace 501 placeholder responses with real service logic
-- Required env placeholders:
-  - FIREBASE_PROJECT_ID=
-  - SMTP_HOST=
-  - SMTP_PORT=
-  - SMTP_USER=
-  - SMTP_PASS=
-  - MAPS_API_KEY=
-  - RECOMMENDER_API_KEY=
-  - PAYMENT_API_KEY=
+  - set runtime values: `NODE_ENV`, `PORT`, `FIREBASE_SERVICE_ACCOUNT`
+  - keep secrets only in env settings (never commit backend/.env)
+  - replace scaffold endpoints with production integrations over time
 
-## 10. Fast Completion Sequence (5-Hour Plan)
-1. Hour 1: finalize frontend flow and forms, verify all pages render.
-2. Hour 2: configure Firebase auth + Firestore basic collections.
-3. Hour 3: add backend endpoints for notifications, reviews, rewards.
-4. Hour 4: connect map and recommendation APIs with fallback dummy data.
-5. Hour 5: test full user journey, patch blockers, prepare demo script.
+## 10. Hosted Backend Deployment Checklist
+- Render (recommended):
+  - Create Web Service from repo with root dir `backend`
+  - Build command: `npm install`
+  - Start command: `npm start`
+  - Set env vars: `NODE_ENV=production`, `FIREBASE_SERVICE_ACCOUNT=<json>`
+  - Verify: `/health`, `/api/app-state/:userKey`, `/api/doctor/verify`, `/api/partner/verify`, `/api/inventory`
+- Railway (alternative):
+  - Create project from repo with service root `backend`
+  - Start command: `npm start`
+  - Set env vars: `NODE_ENV=production`, `FIREBASE_SERVICE_ACCOUNT=<json>`
+  - Verify `/health` response is healthy
 
 ## 11. Manual Update Notes
 - Keep all secrets out of source files; use environment variables.
 - For free-first development, start with dummy endpoints returning static JSON.
 - Replace each placeholder incrementally and test after every integration.
-
+- In frontend hosting (Vercel), set `VITE_API_BASE_URL=https://<backend-domain>/api` and redeploy.
+- Before go-live, ensure inventory no longer returns `503 pending_setup` after Firebase credentials are valid.

@@ -15,7 +15,7 @@ const Settings = () => {
       const json = await res.json();
       setStatus(`Connected: ${json.service}`);
     } catch {
-      setStatus('Backend is not reachable on localhost:5000. Start backend server to enable API features.');
+      setStatus('Backend is not reachable. Configure VITE_API_BASE_URL and ensure your backend is running.');
     }
   };
 
