@@ -1,18 +1,31 @@
-# MediTrack2 Backend Scaffold
+# MediTrack2 Backend
 
-This folder is a placeholder backend structure for future integration.
+Express backend used by MediTrack frontend APIs.
 
 ## Install
 1. cd backend
-2. npm init -y
-3. npm install express cors dotenv
-4. npm install -D nodemon
+2. npm install
+3. cp .env.example .env
 
 ## Run
-- Development: npx nodemon src/server.js
-- Production: node src/server.js
+- Development: npm run dev
+- Production: npm start
+- Tests: npm test
 
-## What to fill manually
-- API keys and provider secrets in .env
-- Real controller logic in src/routes/placeholders.js
-- Database integration for users, inventory, rewards, notifications
+## Environment
+- `PORT` (default 5000)
+- `NODE_ENV`
+- `FIREBASE_SERVICE_ACCOUNT` as JSON string for firebase-admin initialization
+
+## Current API
+- `GET /health`
+- `GET /api/app-state/:userKey`
+- `PUT /api/app-state/:userKey`
+- `POST /api/doctor/verify`
+- `POST /api/partner/verify`
+- `GET /api/inventory`
+- `POST /api/inventory`
+- `DELETE /api/inventory/:id`
+
+## Notes
+- Replace scaffold/in-memory behavior with persistent database integrations for production.

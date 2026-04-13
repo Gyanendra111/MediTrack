@@ -1,1 +1,23 @@
-node_modules
+node_modules/
+backend/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+backend/.env
+
+# Build/test artifacts
+dist/
+coverage/
+test-results/
+playwright-report/
+
+# Recovery and local backups
+recovery_backup_*/
+*.zip
+
+# Logs and local IDE noise
+*.log
+.DS_Store
+.vscode/*.code-snippets

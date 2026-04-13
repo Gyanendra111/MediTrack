@@ -3,9 +3,9 @@
 This report lists all places where you should fill real credentials, API URLs, or business rules. The current code is intentionally wired with UI-ready placeholders so you can complete integrations later.
 
 ## 1. Core Auth and Database
-- File: src/firebase.js
-- What to fill: firebaseConfig object
-- Required values: apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId
+- File: .env (frontend), src/firebase.js
+- What to fill: `VITE_FIREBASE_*` environment variables
+- Required values: VITE_FIREBASE_API_KEY, VITE_FIREBASE_AUTH_DOMAIN, VITE_FIREBASE_PROJECT_ID, VITE_FIREBASE_STORAGE_BUCKET, VITE_FIREBASE_MESSAGING_SENDER_ID, VITE_FIREBASE_APP_ID
 - Source: Firebase Console -> Project Settings -> Your apps -> Web SDK config
 
 ## 2. OCR and Smart Categorization
@@ -91,4 +91,3 @@ This report lists all places where you should fill real credentials, API URLs, o
 - Keep all secrets out of source files; use environment variables.
 - For free-first development, start with dummy endpoints returning static JSON.
 - Replace each placeholder incrementally and test after every integration.
-

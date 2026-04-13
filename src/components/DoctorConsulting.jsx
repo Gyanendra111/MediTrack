@@ -123,7 +123,7 @@ const FigmaDoctorConsulting = () => {
             <div className="text-center py-10">
               <Calendar className="w-12 h-12 mx-auto text-slate-300 mb-4" />
               <h3 className="text-lg font-medium text-slate-900 mb-2">No upcoming appointments</h3>
-              <p className="text-slate-500">You don't have any doctor consultations scheduled.</p>
+              <p className="text-slate-500">You do not have any doctor consultations scheduled.</p>
             </div>
           ) : (
             <div className="space-y-3">

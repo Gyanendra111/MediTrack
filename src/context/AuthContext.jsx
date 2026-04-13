@@ -11,8 +11,19 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const login = (email, password) => signInWithEmailAndPassword(auth, email, password)
+  const assertFirebaseEnabled = () => {
+    if (!auth || !db) {
+      throw new Error('Firebase is not configured. Set VITE_FIREBASE_* environment variables.')
+    }
+  }
+
+  const login = (email, password) => {
+    assertFirebaseEnabled()
+    return signInWithEmailAndPassword(auth, email, password)
+  }
+
   const register = async (email, password) => {
+    assertFirebaseEnabled()
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
     // Add user doc
     await setDoc(doc(db, 'users', userCredential.user.uid), {
@@ -23,10 +34,21 @@ export const AuthProvider = ({ children }) => {
     })
     return userCredential
   }
-  const forgotPassword = (email) => sendPasswordResetEmail(auth, email)
-  const logout = () => signOut(auth)
+  const forgotPassword = (email) => {
+    assertFirebaseEnabled()
+    return sendPasswordResetEmail(auth, email)
+  }
+  const logout = () => {
+    if (!auth) return Promise.resolve()
+    return signOut(auth)
+  }
 
   useEffect(() => {
+    if (!auth) {
+      setLoading(false)
+      return undefined
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user)
       setLoading(false)
@@ -42,4 +64,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-
