@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --page-bg: #f4f7fb;
+  --surface: #ffffff;
+  --surface-soft: #f7f9fc;
+  --text-strong: #0f172a;
+  --text-muted: #64748b;
+  --line: #e2e8f0;
+  --accent: #2563eb;
+  --accent-soft: #dbeafe;
+  --danger: #ef4444;
+  --warn: #f59e0b;
+  --ok: #10b981;
+}
+
+.dark {
+  --page-bg: #020617;
+  --surface: #0f172a;
+  --surface-soft: #111827;
+  --text-strong: #f1f5f9;
+  --text-muted: #94a3b8;
+  --line: #334155;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background:
+    radial-gradient(1000px 500px at 100% -10%, #dbeafe 0%, transparent 65%),
+    radial-gradient(900px 500px at -10% 100%, #e2e8f0 0%, transparent 60%),
+    var(--page-bg);
+  color: var(--text-strong);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.figma-app {
+  min-height: 100vh;
+}
+
+.figma-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.14) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+  background-size: 52px 52px;
+  background-position: center center;
+}
+
+.figma-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.panel-input {
+  @apply border rounded-xl text-slate-900 placeholder:text-slate-400 focus:outline-none;
+  border-color: var(--line);
+  background: var(--surface-soft);
+  color: var(--text-strong);
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.panel-input:focus {
+  border-color: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+  background: #fff;
+}
+
+.neon-button {
+  @apply bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold transition-all;
+  box-shadow: 0 10px 25px -14px rgba(37, 99, 235, 0.85);
+}
+
+.neon-button:hover {
+  @apply bg-blue-700;
+}
+
+.glass-card {
+  @apply rounded-2xl p-8;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 40px -28px rgba(15, 23, 42, 0.28);
+}
+
+.panel-muted {
+  @apply rounded-xl;
+  border: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.panel-accent {
+  @apply rounded-xl border border-blue-200 bg-blue-50;
+}
+
+.figma-title {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.brand-wordmark {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  background: linear-gradient(90deg, #0f4c97 0%, #1c77b8 30%, #12a6b2 62%, #15b489 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-tagline {
+  color: #64748b;
+  letter-spacing: -0.01em;
+}
+
+.dark .brand-tagline {
+  color: #94a3b8;
+}
+
+.dark body {
+  background:
+    radial-gradient(1000px 500px at 100% -10%, rgba(30, 41, 59, 0.85) 0%, transparent 65%),
+    radial-gradient(900px 500px at -10% 100%, rgba(15, 23, 42, 0.8) 0%, transparent 60%),
+    #020617;
+  color: #e2e8f0;
+}
+
+.dark .bg-white,
+.dark .bg-white\/95 {
+  background-color: #0f172a !important;
+}
+
+.dark .bg-slate-50,
+.dark .bg-slate-50\/70,
+.dark .bg-slate-50\/50,
+.dark .bg-slate-100 {
+  background-color: #111827 !important;
+}
+
+.dark .text-slate-900 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-600,
+.dark .text-slate-500,
+.dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+.dark .border-slate-200,
+.dark .border-slate-100 {
+  border-color: #334155 !important;
+}
