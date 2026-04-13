@@ -3,10 +3,26 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getFunctions } from 'firebase/functions';
 
-const isPlaceholderValue = (value) =>
-  /^your[-_\s]/i.test(value) ||
-  /^<.+>$/.test(value) ||
-  /^(changeme|replace_me|null|undefined)$/i.test(value);
+const firebasePlaceholderValues = new Set([
+  'your-api-key',
+  'your-auth-domain',
+  'your-project-id',
+  'your-storage-bucket',
+  'your-messaging-sender-id',
+  'your-app-id',
+  'your-measurement-id',
+]);
+
+const isPlaceholderValue = (value) => {
+  const normalized = value.toLowerCase().replace(/[\s_]+/g, '-');
+  const withoutHereSuffix = normalized.replace(/-here$/, '');
+  return (
+    /^<.+>$/.test(value) ||
+    /^(changeme|replace-me|null|undefined)$/.test(normalized) ||
+    firebasePlaceholderValues.has(normalized) ||
+    firebasePlaceholderValues.has(withoutHereSuffix)
+  );
+};
 
 const normalizeEnvValue = (value) => {
   if (typeof value !== 'string') return '';
@@ -15,6 +31,8 @@ const normalizeEnvValue = (value) => {
   return isPlaceholderValue(normalized) ? '' : normalized;
 };
 
+const measurementId = normalizeEnvValue(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID);
+
 const firebaseConfig = {
   apiKey: normalizeEnvValue(import.meta.env.VITE_FIREBASE_API_KEY),
   authDomain: normalizeEnvValue(import.meta.env.VITE_FIREBASE_AUTH_DOMAIN),
@@ -22,20 +40,12 @@ const firebaseConfig = {
   storageBucket: normalizeEnvValue(import.meta.env.VITE_FIREBASE_STORAGE_BUCKET),
   messagingSenderId: normalizeEnvValue(import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID),
   appId: normalizeEnvValue(import.meta.env.VITE_FIREBASE_APP_ID),
-  measurementId: normalizeEnvValue(import.meta.env.VITE_FIREBASE_MEASUREMENT_ID),
+  ...(measurementId ? { measurementId } : {}),
 };
 
-const requiredFirebaseConfig = {
-  apiKey: firebaseConfig.apiKey,
-  authDomain: firebaseConfig.authDomain,
-  projectId: firebaseConfig.projectId,
-  storageBucket: firebaseConfig.storageBucket,
-  messagingSenderId: firebaseConfig.messagingSenderId,
-  appId: firebaseConfig.appId,
-};
-
-const missingFirebaseKeys = Object.entries(requiredFirebaseConfig)
-  .filter(([, value]) => !value)
+const optionalKeys = new Set(['measurementId']);
+const missingFirebaseKeys = Object.entries(firebaseConfig)
+  .filter(([key, value]) => !optionalKeys.has(key) && !value)
   .map(([key]) => key);
 
 export const hasFirebaseConfig = missingFirebaseKeys.length === 0;
