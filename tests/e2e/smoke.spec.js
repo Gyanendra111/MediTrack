@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test('login page renders and navigation links are visible', async ({ page }) => {
   await page.goto('/login')
   await expect(page.getByText('Welcome Back')).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Register', exact: true })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Create account', exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Continue as Guest' })).toBeVisible()
 })
 
