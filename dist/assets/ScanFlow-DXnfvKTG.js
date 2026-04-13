@@ -1,4 +1,4 @@
-import{r as s,j as e}from"./react-vendor-PleRxLNr.js";import{s as $}from"./ocr-vendor-CUOcaRaZ.js";import{a as T}from"./index-B-BImuRK.js";import{c as j}from"./createLucideIcon-CvxW_b4L.js";import{Z as V}from"./zap-Bj320Xf3.js";import"./router-vendor-CkOUzQ8t.js";import"./firebase-vendor-Bl6ejjVg.js";/**
+import{r as s,j as e}from"./react-vendor-PleRxLNr.js";import{s as $}from"./ocr-vendor-CUOcaRaZ.js";import{a as T}from"./index-BBDs9Au0.js";import{c as j}from"./createLucideIcon-CvxW_b4L.js";import{Z as V}from"./zap-Bj320Xf3.js";import"./router-vendor-CkOUzQ8t.js";import"./firebase-vendor-Bl6ejjVg.js";/**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
