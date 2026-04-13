@@ -66,6 +66,8 @@
    - `VITE_FIREBASE_STORAGE_BUCKET`
    - `VITE_FIREBASE_MESSAGING_SENDER_ID`
    - `VITE_FIREBASE_APP_ID`
+   - `VITE_FIREBASE_MEASUREMENT_ID` (optional)
+   - Use exact Firebase Web SDK values (no placeholder text, no wrapping quotes).
 6. Redeploy after setting variables.
 
 ## Connect Frontend to Deployed Backend
